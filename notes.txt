@@ -1,0 +1,60 @@
+# Create Cluster
+eksctl create cluster --name=eksdemo1 \
+                      --region=us-east-1 \
+                      --zones=us-east-1a,us-east-1b \
+                      --without-nodegroup 
+
+
+# Get List of clusters
+eksctl get cluster  
+
+vpc-05a5759ef979c8d9d / eksctl-eksdemo1-cluster/VPC
+
+
+Create & Associate IAM OIDC Provider for our EKS Cluster
+
+eksctl utils associate-iam-oidc-provider \
+    --region us-east-1 \
+    --cluster eksdemo1 \
+    --approve
+
+Step-03: Create EKS Node Group in Private Subnets
+
+eksctl create nodegroup --cluster=eksdemo1 \
+                        --region=us-east-1 \
+                        --name=eksdemo1-ng-private1 \
+                        --node-type=t3.medium \
+                        --nodes-min=2 \
+                        --nodes-max=4 \
+                        --node-volume-size=20 \
+                        --ssh-access \
+                        --ssh-public-key=kube-demo \
+                        --managed \
+                        --asg-access \
+                        --external-dns-access \
+                        --full-ecr-access \
+                        --appmesh-access \
+                        --alb-ingress-access \
+                        --node-private-networking
+url RDS: usermgmtdb.co1lkygkcbha.us-east-1.rds.amazonaws.com
+
+kubectl run -it --rm --image=mysql:5.7.22 --restart=Never mysql-client -- mysql -h usermgmtdb.co1lkygkcbha.us-east-1.rds.amazonaws.com -u dbadmin -pdbpassword11
+
+mysql> show schemas;
+mysql> create database usermgmt;
+mysql> show schemas;
+mysql> exit
+
+arn policy ingress: arn:aws:iam::889116940260:policy/ALBIngressControllerIAMPolicy
+
+aen policy route53: arn:aws:iam::889116940260:policy/AllowExternalDNSUpdates
+
+arn role: arn:aws:iam::889116940260:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-Y2C7DU91TFZH
+
+arn certificate: arn:aws:acm:us-east-1:889116940260:certificate/6d535b46-ba0b-41a0-9153-cd7ae15b5479
+
+domain: kubecloud26.net
+
+
+
+
