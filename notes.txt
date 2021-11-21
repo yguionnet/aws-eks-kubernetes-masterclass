@@ -38,7 +38,7 @@ eksctl create nodegroup --cluster=eksdemo1 \
                         --node-private-networking
 url RDS: usermgmtdb.co1lkygkcbha.us-east-1.rds.amazonaws.com
 
-kubectl run -it --rm --image=mysql:5.7.22 --restart=Never mysql-client -- mysql -h usermgmtdb.co1lkygkcbha.us-east-1.rds.amazonaws.com -u dbadmin -pdbpassword11
+kubectl run -it --rm --image=mysql:5.7.22 --restart=Never mysql-client -- mysql -h usermgmtdb.co1lkygkcbha.us-east-1.rds.amazonaws.com -u dbadmin -p*******
 
 mysql> show schemas;
 mysql> create database usermgmt;
